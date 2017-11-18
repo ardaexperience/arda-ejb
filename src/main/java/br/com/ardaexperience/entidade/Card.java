@@ -1,6 +1,7 @@
 package br.com.ardaexperience.entidade;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,17 +19,19 @@ public class Card implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Column(nullable = false)
     private String titulo;
-    private String descricao;
+    
+    @Column(nullable = false, name = "ENDERECO_IMAGEM")
     private String enderecoImagem;
 
     public Card() {
         
     }
 
-    public Card(String titulo, String descricao, String enderecoImagem) {
+    public Card(String titulo, String enderecoImagem) {
         this.titulo = titulo;
-        this.descricao = descricao;
         this.enderecoImagem = enderecoImagem;
     }
 
@@ -46,14 +49,6 @@ public class Card implements Serializable {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
     }
 
     public String getEnderecoImagem() {

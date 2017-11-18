@@ -1,7 +1,6 @@
 package br.com.ardaexperience.entidade;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,11 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @NamedQueries(
-        @NamedQuery(name = "CartaoCredito.consultarTodos", query = "SELECT e FROM CartaoCredito e")
+        @NamedQuery(name = "CartaoCredito.consultarTodos", query = "SELECT e "
+                + "FROM CartaoCredito e")
 )
 
 @Entity
@@ -29,32 +27,30 @@ public class CartaoCredito implements Serializable {
     private String nomeCliente;
     
     @Column(name = "NUMERO_CARTAO", nullable = false)
-    private Long numeroCartao;
+    private String numeroCartao;
     
     @Column(name = "NUMERO_SEGURANCA", nullable = false)
-    private int numeroSeguranca;
+    private String numeroSeguranca;
     
     @Column(name = "MES_EXPIRACAO", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date mesExpiracao;
+    private String mesExpiracao;
     
     @Column(name = "ANO_EXPIRACAO", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date anoExpiracao;
+    private String anoExpiracao;
 
     public CartaoCredito() {
         
     }
 
-    public CartaoCredito(String nomeCliente, Long numeroCartao, 
-            int numeroSeguranca, Date mesExpiracao, Date anoExpiracao) {
+    public CartaoCredito(String nomeCliente, String numeroCartao, 
+            String numeroSeguranca, String mesExpiracao, String anoExpiracao) {
         this.nomeCliente = nomeCliente;
         this.numeroCartao = numeroCartao;
         this.numeroSeguranca = numeroSeguranca;
         this.mesExpiracao = mesExpiracao;
         this.anoExpiracao = anoExpiracao;
     }
-
+    
     public Long getId() {
         return id;
     }
@@ -71,36 +67,36 @@ public class CartaoCredito implements Serializable {
         this.nomeCliente = nomeCliente;
     }
 
-    public Long getNumeroCartao() {
+    public String getNumeroCartao() {
         return numeroCartao;
     }
 
-    public void setNumeroCartao(Long numeroCartao) {
+    public void setNumeroCartao(String numeroCartao) {
         this.numeroCartao = numeroCartao;
     }
 
-    public int getNumeroSeguranca() {
+    public String getNumeroSeguranca() {
         return numeroSeguranca;
     }
 
-    public void setNumeroSeguranca(int numeroSeguranca) {
+    public void setNumeroSeguranca(String numeroSeguranca) {
         this.numeroSeguranca = numeroSeguranca;
     }
 
-    public Date getMesExpiracao() {
+    public String getMesExpiracao() {
         return mesExpiracao;
     }
 
-    public void setMesExpiracao(Date mesExpiracao) {
+    public void setMesExpiracao(String mesExpiracao) {
         this.mesExpiracao = mesExpiracao;
     }
 
-    public Date getAnoExpiracao() {
+    public String getAnoExpiracao() {
         return anoExpiracao;
     }
 
-    public void setAnoExpiracao(Date anoExpiracao) {
+    public void setAnoExpiracao(String anoExpiracao) {
         this.anoExpiracao = anoExpiracao;
     }
-    
+
 }

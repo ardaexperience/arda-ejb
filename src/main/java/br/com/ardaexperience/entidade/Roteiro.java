@@ -3,9 +3,11 @@ package br.com.ardaexperience.entidade;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -21,13 +23,16 @@ public class Roteiro implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;    
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false, name = "DETALHES_ROTEIRO_ID")
     private DetalhesRoteiro detalhesRoteiro;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false)
     private Card card;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false)
     private Pagina pagina;
 
     public Roteiro() {

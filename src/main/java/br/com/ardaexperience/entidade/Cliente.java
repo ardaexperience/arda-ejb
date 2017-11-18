@@ -1,13 +1,17 @@
-package br.com.ardaexperience.entidade;
+    package br.com.ardaexperience.entidade;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @NamedQueries(
@@ -20,34 +24,40 @@ public class Cliente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String rg;
-    private String cpf;
-    private String nome;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false)
+    private Usuario usuario;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Contato contato;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Endereco endereco;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "DADOS_PESSOAIS_ID")
+    private DadosPessoais dadosPessoais;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "CARTAO_CREDITO_ID")
     private CartaoCredito cartaoCredito;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Usuario usuario;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "CLIENTE_ID")
+    private List<Pedido> pedidos;
 
     public Cliente() {
 
     }
 
-    public Cliente(String rg, String cpf, String nome, Contato contato, Endereco endereco, CartaoCredito cartaoCredito, Usuario usuario) {
-        this.rg = rg;
-        this.cpf = cpf;
-        this.nome = nome;
+    public Cliente(DadosPessoais dadosPessoais, Usuario usuario, Contato contato, Endereco endereco, CartaoCredito cartaoCredito, List<Pedido> pedidos) {
+        this.dadosPessoais = dadosPessoais;
+        this.usuario = usuario;
         this.contato = contato;
         this.endereco = endereco;
         this.cartaoCredito = cartaoCredito;
-        this.usuario = usuario;
+        this.pedidos = pedidos;
     }
 
     public Long getId() {
@@ -58,28 +68,20 @@ public class Cliente implements Serializable {
         this.id = id;
     }
 
-    public String getRg() {
-        return rg;
+    public DadosPessoais getDadosPessoais() {
+        return dadosPessoais;
     }
 
-    public void setRg(String rg) {
-        this.rg = rg;
+    public void setDadosPessoais(DadosPessoais dadosPessoais) {
+        this.dadosPessoais = dadosPessoais;
     }
 
-    public String getCpf() {
-        return cpf;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Contato getContato() {
@@ -106,12 +108,12 @@ public class Cliente implements Serializable {
         this.cartaoCredito = cartaoCredito;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public List<Pedido> getPedidos() {
+        return pedidos;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
 }

@@ -9,10 +9,10 @@ import javax.persistence.PersistenceContext;
 
 @Stateless
 public class ClienteBean implements ClienteRemote {
-    
+
     @PersistenceContext(name = "ArdaPU")
     private EntityManager em;
-    
+
     @Override
     public Cliente registrar(Cliente cliente) throws Exception {
         ClienteDAO dao = new ClienteDAO(em);
@@ -35,5 +35,11 @@ public class ClienteBean implements ClienteRemote {
     public List<Cliente> consultarTodos() {
         ClienteDAO dao = new ClienteDAO(em);
         return dao.consultarTodos();
+    }
+
+    @Override
+    public Object validar(String usuario, String senha) {
+        ClienteDAO dao = new ClienteDAO(em);
+        return dao.validar(usuario, senha);
     }
 }
