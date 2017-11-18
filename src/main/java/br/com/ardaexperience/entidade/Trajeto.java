@@ -6,32 +6,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-
-@NamedQueries(
-    @NamedQuery(name = "Card.consultarTodos", query = "SELECT e FROM Card e")
-)
 
 @Entity
-public class Card implements Serializable {
-    
+public class Trajeto implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @Column(nullable = false)
-    private String titulo;
+    private String nome;
+    
+    @Column(nullable = false)
+    private String descricao;
     
     @Column(nullable = false, name = "ENDERECO_IMAGEM")
     private String enderecoImagem;
 
-    public Card() {
-        
+    public Trajeto() {
     }
 
-    public Card(String titulo, String enderecoImagem) {
-        this.titulo = titulo;
+    public Trajeto(String nome, String descricao, String enderecoImagem) {
+        this.nome = nome;
+        this.descricao = descricao;
         this.enderecoImagem = enderecoImagem;
     }
 
@@ -43,12 +40,20 @@ public class Card implements Serializable {
         this.id = id;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getNome() {
+        return nome;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getEnderecoImagem() {

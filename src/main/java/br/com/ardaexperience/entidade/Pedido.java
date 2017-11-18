@@ -3,11 +3,13 @@ package br.com.ardaexperience.entidade;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -25,21 +27,19 @@ public class Pedido implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Cliente cliente;
-
     @Temporal(TemporalType.DATE)
-    private Date dataPedido;
+    @Column(name = "DATA_EFETUACAO_PEDIDO", nullable = false)
+    private Date dataEfetuacaoPedido;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false, name = "DETALHES_PEDIDO_ID")
     private DetalhesPedido detalhesPedido;
 
     public Pedido() {
     }
 
-    public Pedido(Cliente cliente, Date dataPedido, DetalhesPedido detalhesPedido) {
-        this.cliente = cliente;
-        this.dataPedido = dataPedido;
+    public Pedido(Date dataEfetuacaoPedido, DetalhesPedido detalhesPedido) {
+        this.dataEfetuacaoPedido = dataEfetuacaoPedido;
         this.detalhesPedido = detalhesPedido;
     }
 
@@ -51,22 +51,14 @@ public class Pedido implements Serializable {
         this.id = id;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Date getDataEfetuacaoPedido() {
+        return dataEfetuacaoPedido;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setDataEfetuacaoPedido(Date dataEfetuacaoPedido) {
+        this.dataEfetuacaoPedido = dataEfetuacaoPedido;
     }
-
-    public Date getDataPedido() {
-        return dataPedido;
-    }
-
-    public void setDataPedido(Date dataPedido) {
-        this.dataPedido = dataPedido;
-    }
-
+    
     public DetalhesPedido getDetalhesPedido() {
         return detalhesPedido;
     }

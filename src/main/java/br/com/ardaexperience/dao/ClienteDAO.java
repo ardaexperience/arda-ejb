@@ -21,6 +21,14 @@ public class ClienteDAO {
         }
         return cliente;
     }
+    
+    public Object validar(String usuario, String senha){
+        Query query = em.createNamedQuery("Usuario.validar");
+        query.setParameter("usuario", usuario);
+        query.setParameter("senha", senha);
+        Object resultado = query.getSingleResult();
+        return resultado;
+    }
 
     public Cliente atualizar(Cliente cliente) throws Exception {
         if (em.find(Cliente.class, cliente.getId()) == null) {

@@ -1,12 +1,16 @@
 package br.com.ardaexperience.entidade;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 @NamedQueries(
     @NamedQuery(name = "Pagina.consultarTodos", query = "SELECT e FROM Pagina e")
@@ -16,42 +20,50 @@ import javax.persistence.NamedQuery;
 public class Pagina implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private double avaliacao;
     private String titulo;
-    private String imagens;
+    
+    @Column(nullable = false)
+    private double avaliacao;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false, name = "PAGINA_ID")
+    private List<Imagem> imagens;
+
+    @Column(nullable = false)
     private String descricao;
-    private String trajeto;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false, name = "PAGINA_ID")
+    private List<Trajeto> trajetos;
+    
+    @Column(nullable = false)
     private String clima;
+    
+    @Column(nullable = false, name = "MOEDA_LOCAL")
     private String moedaLocal;
+    
+    @Column(nullable = false, name = "FUSO_HORARIO")
     private String fusoHorario;
-    private String idiomaNatio;
+    
+    @Column(nullable = false)
+    private String idioma;
 
     public Pagina() {
     
     }
 
-    public Pagina(double avaliacao, String titulo, String imagens,
-            String descricao, String trajeto, String clima, String moedaLocal,
-            String fusoHorario, String idiomaNatio) {
+    public Pagina(double avaliacao, String titulo, List<Imagem> imagens, 
+            String descricao, List<Trajeto> trajetos, String clima,
+            String moedaLocal, String fusoHorario, String idioma) {
         this.avaliacao = avaliacao;
         this.titulo = titulo;
         this.imagens = imagens;
         this.descricao = descricao;
-        this.trajeto = trajeto;
+        this.trajetos = trajetos;
         this.clima = clima;
         this.moedaLocal = moedaLocal;
         this.fusoHorario = fusoHorario;
-        this.idiomaNatio = idiomaNatio;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.idioma = idioma;
     }
 
     public double getAvaliacao() {
@@ -70,11 +82,11 @@ public class Pagina implements Serializable {
         this.titulo = titulo;
     }
 
-    public String getImagens() {
+    public List<Imagem> getImagens() {
         return imagens;
     }
 
-    public void setImagens(String imagens) {
+    public void setImagens(List<Imagem> imagens) {
         this.imagens = imagens;
     }
 
@@ -86,12 +98,12 @@ public class Pagina implements Serializable {
         this.descricao = descricao;
     }
 
-    public String getTrajeto() {
-        return trajeto;
+    public List<Trajeto> getTrajetos() {
+        return trajetos;
     }
 
-    public void setTrajeto(String trajeto) {
-        this.trajeto = trajeto;
+    public void setTrajetos(List<Trajeto> trajetos) {
+        this.trajetos = trajetos;
     }
 
     public String getClima() {
@@ -118,12 +130,12 @@ public class Pagina implements Serializable {
         this.fusoHorario = fusoHorario;
     }
 
-    public String getIdiomaNatio() {
-        return idiomaNatio;
+    public String getIdioma() {
+        return idioma;
     }
 
-    public void setIdiomaNatio(String idiomaNatio) {
-        this.idiomaNatio = idiomaNatio;
+    public void setIdioma(String idioma) {
+        this.idioma = idioma;
     }
     
 }

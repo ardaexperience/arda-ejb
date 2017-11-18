@@ -1,6 +1,7 @@
 package br.com.ardaexperience.entidade;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,23 +22,27 @@ public class DetalhesRoteiro implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String nome;
 
-    private String TemaFilmeOuSerie;
-
+    @Column(nullable = false)
     private Double custo;
 
+    @Column(nullable = false)
     private Double preco;
 
+    @Column(nullable = false)
+    private String duracao;
+
     public DetalhesRoteiro() {
-    
+
     }
-    
-    public DetalhesRoteiro(String nome, String TemaFilmeOuSerie, Double custo, Double preco) {
+
+    public DetalhesRoteiro(String nome, Double custo, Double preco, String duracao) {
         this.nome = nome;
-        this.TemaFilmeOuSerie = TemaFilmeOuSerie;
         this.custo = custo;
         this.preco = preco;
+        this.duracao = duracao;
     }
 
     public Long getId() {
@@ -56,14 +61,6 @@ public class DetalhesRoteiro implements Serializable {
         this.nome = nome;
     }
 
-    public String getTemaFilmeOuSerie() {
-        return TemaFilmeOuSerie;
-    }
-
-    public void setTemaFilmeOuSerie(String TemaFilmeOuSerie) {
-        this.TemaFilmeOuSerie = TemaFilmeOuSerie;
-    }
-
     public Double getCusto() {
         return custo;
     }
@@ -79,5 +76,14 @@ public class DetalhesRoteiro implements Serializable {
     public void setPreco(Double preco) {
         this.preco = preco;
     }
+
+    public String getDuracao() {
+        return duracao;
+    }
+
+    public void setDuracao(String duracao) {
+        this.duracao = duracao;
+    }
+    
     
 }
